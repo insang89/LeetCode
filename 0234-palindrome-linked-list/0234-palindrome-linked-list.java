@@ -10,21 +10,24 @@
  */
 class Solution {
     public boolean isPalindrome(ListNode head) {
-        Deque<Integer> deque = new LinkedList<>();
-        // 연결 리스트를 데크에 삽입
+        // 주의: 스택을 이렇게 선언하면 안 됨
+        Stack<Integer> stack = new Stack<>();
+
+        // 연결 리스트를 스택에 삽입
         ListNode node = head;
         while(node != null) {
-            deque.add(node.val);
+            stack.add(node.val);
             node = node.next;
-        }
+        };
 
-        // 데크가 모두 비거나(짝수 개일 때) 1개 이하(홀수 개일 때)가 될 때까지 비교
-        while(!deque.isEmpty() && deque.size() > 1) {
-            // 데크의 양 끝을 추출해 팰린드롬 여부 확인
-            if(deque.pollFirst() != deque.pollLast()) {
+        // 연결 리스트가 모두 빌 때까지 비교
+        while (head != null) {
+            // 연결 리스트와 스택에서 추출한 값을 비교해 팰린드롬 판별
+            if (head.val != stack.pop()) {
                 return false;
-            }
-        }
+            };
+            head = head.next;
+        };
         return true;
     }
 }
